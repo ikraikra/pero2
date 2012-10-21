@@ -22,7 +22,6 @@ import jp.co.omana.entity.MasterCat;
 import jp.co.omana.entity.MovieSeries;
 import jp.co.omana.form.IndexForm;
 import jp.co.omana.service.MasterCatService;
-import jp.co.omana.service.MovieInfoService;
 import jp.co.omana.service.MovieSeriesService;
 
 import org.seasar.framework.util.IntegerConversionUtil;
@@ -38,9 +37,6 @@ import java.util.List;
 
 public class IndexAction{
 
-
-	@Resource
-	MovieInfoService movieInfoService;
 
 	@Resource
 	MovieSeriesService movieSeriesService;
@@ -66,7 +62,6 @@ public class IndexAction{
 
 	//Snumが1であるものの件数
 	public long total;
-
 
 	public int catId=0;
 	public int page=1;
