@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<title>テンプレート${ページごとにテキストが変わります}</title>
+	<title>テンプレート{ページごとにテキストが変わります}</title>
 	<meta charset="UTF-8" />
 	<meta name="description" content="できるまとめサイトです。">
 	<meta name="keywords" content="閲覧">
