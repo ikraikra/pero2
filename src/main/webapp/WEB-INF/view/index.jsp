@@ -13,12 +13,15 @@
 	<!--[if lte IE 7]>
 		<link href="ie.css" rel="stylesheet" type="text/css" />
 	<![endif]-->
+	<% /*
 	<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
 	<script type="text/javascript" src="${f:url('/js/toTop.js')}"></script>
 	<script type="text/javascript" src="${f:url('/js/linkStyle.js')}"></script>
 	<script type="text/javascript" src="${f:url('/js/missing.js')}"></script>
 	<script type="text/javascript" src="${f:url('/js/switchOnOff.js')}"></script>
 	<script language="JavaScript" type="text/javascript" src="${f:url('/js/jquery.syg_imageradio.1.1.js')}"></script>
+	 */
+	 %>
 </head>
 <body>
 	<div id="wrapper">
@@ -35,10 +38,10 @@
 			<div id="inner_nav">
 				<div id="naviDiv">
 					<ul>
-						<li><a href="./">トップページ</a>|</li>
-						<li><a href="./">このサイトについて</a>|</li>
-						<li><a href="./">リンク</a>|</li>
-						<li><a href="./">サイトリンク</a></li>
+						<li><s:link href="./">トップページ</s:link>|</li>
+						<li><s:link href="./">このサイトについて</s:link>|</li>
+						<li><s:link href="./">リンク</s:link>|</li>
+						<li><s:link href="./">サイトリンク</s:link></li>
 					</ul>
 				</div>
 				<div id="searchDiv">
@@ -63,7 +66,7 @@
 				<div id="contentLeft">
 					<div id="searchBox">
 						<div id="search_bar">
-							<h2><img src="img/searchBar.png" alt="ジャンルから探す"/></h2>
+							<h2><img src="${f:url('/img/searchBar.png')}" alt="ジャンルから探す"/></h2>
 						</div>
 						<div id="womenmovieGenre">
 							<ul>
@@ -71,7 +74,7 @@
 									<c:if test="${catId == status.index }">
 										<li ><s:link href="search/${f:h(msrCt.catId)}/1" > <Strong>${f:h(msrCt.catName) }</Strong> </s:link></li>
 									</c:if>
-	 								<c:if test="${catId != status.index }">
+	 								<c:if test="${catId != status.index}">
 										<li><s:link href="search/${f:h(msrCt.catId)}/1" > ${f:h(msrCt.catName) } </s:link></li>
 									</c:if>
 								</c:forEach>
@@ -91,7 +94,7 @@
                             <c:forEach var="movie" items="${movieSeriesList}" varStatus="mStatus">
 								<div class="movieContents">
 									<div class="movieImages">
-										<s:link href="${f:h(movie.sid)}"><img src="${f:h(movie.spic)}" alt="" height="100" width="130"></s:link>
+										<s:link href="detail/${f:h(movie.sid)}"><img src="${f:h(movie.spic)}" alt="" height="100" width="130"></s:link>
 									</div>
 									<div class="Names">
 										<p>${f:h(movie.stitle)}</p>
@@ -145,7 +148,7 @@
 							</c:if>
 						</div>
 						<div id="topDiv">
-							<p id="toTop"><a href="#wrapper">このページのトップへ</a></p>
+							<p id="toTop"><s:link href="#wrapper">このページのトップへ</s:link></p>
 						</div>
 
 				</div>
@@ -154,12 +157,12 @@
 
 					<div id="favorite">
 						<div id="favoriteBar">
-							<h2><img src="img/favoriteBar.png" alt="お気に入りを見る"></h2>
+							<h2><img src="${f:url('/img/favoriteBar.png')}" alt="お気に入りを見る"></h2>
 						</div>
 						<div id="favoriteContents">
 							<p>
 								<ul>
-									<li><a href="">ひろきおにいちゃんと幼女の交わり</a></li>
+									<li><s:link href="">ひろきおにいちゃんと幼女の交わり</s:link></li>
 								</ul>
 							</p>
 						</div>
@@ -167,13 +170,13 @@
 								<p>
 									<ul>
 
-										<li><a href="">もっと見る</a></li>
+										<li><s:link href="">もっと見る</s:link></li>
 									</ul>
 								</p>
 						</div>
 					</div>
 					<div class="ad">
-						<img src="img/300_2503.jpg" width="240px" height="200px" />
+						<img src="${f:url('/img/300_2503.jpg')}" width="240px" height="200px" />
 					</div>
 				</div>
 			</div>
@@ -187,9 +190,9 @@
 					<h3><span class="footerDeco">コンテンツ</span></h3>
 					<ul>
 					<p>
-						<li>・<a href="./">サイトトップに戻る</a></li>
-						<li>・<a href="./">お気に入りを見る</a></li>
-						<li>・<a href="./">人気ランキング</a></li>
+						<li>・<s:link href="./">サイトトップに戻る</s:link></li>
+						<li>・<s:link href="./">お気に入りを見る</s:link></li>
+						<li>・<s:link href="./">人気ランキング</s:link></li>
 					</p>
 					</ul>
 				</div>
@@ -197,10 +200,10 @@
 					<h3><span class="footerDeco">○○について</span></h3>
 					<ul>
 					<p>
-						<li>・<a href="./">本サイトについて</a></li>
-						<li>・<a href="./">サイトポリシー</a></li>
-						<li>・<a href="./">お問い合わせ</a></li>
-						<li>・<a href="./">広告掲載について</a></li>
+						<li>・<s:link href="./">本サイトについて</s:link></li>
+						<li>・<s:link href="./">サイトポリシー</s:link></li>
+						<li>・<s:link href="./">お問い合わせ</s:link></li>
+						<li>・<s:link href="./">広告掲載について</s:link></li>
 					</p>
 					</ul>
 				</div>
@@ -208,9 +211,9 @@
 					<h3><span class="footerDeco">おススメサイト</span></h3>
 					<ul>
 					<p>
-						<li>・<a href="./">相互サイトリンク</a></li>
-						<li>・<a href="./">アクセスランキング</a></li>
-						<li>・<a href="./">広告へのリンク１</a></li>
+						<li>・<s:link href="./">相互サイトリンク</s:link></li>
+						<li>・<s:link href="./">アクセスランキング</s:link></li>
+						<li>・<s:link href="./">広告へのリンク１</s:link></li>
 					</p>
 					</ul>
 				</div>

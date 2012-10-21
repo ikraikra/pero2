@@ -70,6 +70,7 @@ public class IndexAction{
 	public int sid = 0;
 
 	public String catName = "";
+	public String movieName = "";
 
 	public List<Integer> pagingList = new ArrayList<Integer>();
 	public List<MovieSeries> movieSeriesList = new ArrayList<MovieSeries>();
@@ -123,8 +124,7 @@ public class IndexAction{
 			catName = masterCatService.findById(movieListDto.catId).catName;
 
 			//カテゴリがない場合はcatNameにジャンル未選択を入れます。
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (NullPointerException e) {
 			catName = "ジャンル未選択";
 		}
 
@@ -138,8 +138,6 @@ public class IndexAction{
 
 		//snumが1であるものの件数を取得します。
 		total = movieSeriesService.countMovieSeriesByCondition(movieListDto.catId, null);
-
-		System.out.println("------------------3-------- loginDto.roleId" +null+" movie_Cat "+movieListDto.catId);
 
 		//role,カテゴリー, sNumが1のものをMovieSeriesから検索します。
 		movieSeriesList = movieSeriesService.findMovieSeriesByCondition(movieListDto.catId, null, LIMIT, page);
@@ -172,13 +170,29 @@ public class IndexAction{
 	@Execute(validator = true, input = "index.jsp", urlPattern ="detail/{sid}")
 	public String detail(){
 
-
-		System.out.println("--------------------"+indexForm.sid);
+		//取得したsidをintに変えます。
 		int sid = IntegerConversionUtil.toPrimitiveInt(indexForm.sid);
-		System.out.println("--------------------------------"+sid);
+
+		//取得したsidで動画を検索します。
 		movieSeriesList = movieSeriesService.findBySId(sid);
+
+		//動画のタイトルを取得します。
+		try {
+			movieName = movieSeriesList.get(0).stitle;
+		} catch (NullPointerException e) {
+			movieName = "タイトルがありません。";
+		}
+
+		//表示したビデオの再生回数を+1します。
+		for(MovieSeries mSL:movieSeriesList ){
+			mSL.totalPlay += 1;
+			movieSeriesService.update(mSL);
+		}
+
+		//表示用のカテゴリーのマスターを取得します。
 		masterCatList = masterCatService.findAll();
 		return "detail.jsp";
+
 	}
 
 

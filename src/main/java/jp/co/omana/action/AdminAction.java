@@ -186,8 +186,7 @@ public class AdminAction{
 			catName = masterCatService.findById(movieListDto.catId).catName;
 
 			//カテゴリがない場合はcatNameにジャンル未選択を入れます。
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (NullPointerException e) {
 			catName = "ジャンル未選択";
 		}
 
