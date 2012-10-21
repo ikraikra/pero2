@@ -38,7 +38,7 @@
 			<div id="inner_nav">
 				<div id="naviDiv">
 					<ul>
-						<li><s:link href="index">トップページ</s:link>|</li>
+						<li><s:link href="search/0/1">トップページ</s:link>|</li>
 						<li><s:link href="./">このサイトについて</s:link>|</li>
 						<li><s:link href="./">リンク</s:link>|</li>
 						<li><s:link href="./">サイトリンク</s:link></li>

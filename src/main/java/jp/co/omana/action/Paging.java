@@ -53,7 +53,6 @@ public abstract class Paging {
 			//最大ページ以下の場合
 			if (maxPage >= (i + page -7) && (i + page -7)>0){
 				pagings.add(i + page -7);
-				System.out.println(i + page -7);
 
 				//最大値に達した場合
 				if (maxPage == (i + page -7)){

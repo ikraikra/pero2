@@ -38,10 +38,10 @@
 			<div id="inner_nav">
 				<div id="naviDiv">
 					<ul>
-						<li><s:link href="./">トップページ</s:link>|</li>
-						<li><s:link href="./">このサイトについて</s:link>|</li>
-						<li><s:link href="./">リンク</s:link>|</li>
-						<li><s:link href="./">サイトリンク</s:link></li>
+						<li><s:link href="search/0/1">トップページ</s:link>|</li>
+						<li><s:link href="">このサイトについて</s:link>|</li>
+						<li><s:link href="">リンク</s:link>|</li>
+						<li><s:link href="">サイトリンク</s:link></li>
 					</ul>
 				</div>
 				<div id="searchDiv">
@@ -159,13 +159,16 @@
 						<div id="favoriteBar">
 							<h2><img src="${f:url('/img/favoriteBar.png')}" alt="お気に入りを見る"></h2>
 						</div>
+						<c:forEach var="his" items="${hisList}" varStatus="status">
 						<div id="favoriteContents">
-							<p>
-								<ul>
-									<li><s:link href="">ひろきおにいちゃんと幼女の交わり</s:link></li>
-								</ul>
-							</p>
+								<p>
+									<ul>
+										<li><s:link href="detail/${f:h(his.sid)}">${f:h(his.stitle)}</s:link></li>
+									</ul>
+								</p>
+
 						</div>
+						</c:forEach>
 						<div id="favoriteFooter">
 								<p>
 									<ul>

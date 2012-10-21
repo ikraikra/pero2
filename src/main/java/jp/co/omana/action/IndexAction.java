@@ -16,6 +16,9 @@
 package jp.co.omana.action;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import jp.co.omana.dto.MovieListDto;
 import jp.co.omana.entity.MasterCat;
@@ -27,6 +30,9 @@ import jp.co.omana.service.MovieSeriesService;
 import org.seasar.framework.util.IntegerConversionUtil;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
+import org.seasar.struts.util.RequestUtil;
+import org.seasar.struts.util.ResponseUtil;
+
 
 
 
@@ -77,6 +83,9 @@ public class IndexAction{
 	public List<MovieSeries> movieSeriesSidList = new ArrayList<MovieSeries>();
 	public List<MovieSeries> despMovieSeriesList = new ArrayList<MovieSeries>();
 	public List<MasterCat> masterCatList = new ArrayList<MasterCat>();
+
+	//履歴を入れるリスト
+	public List<MovieSeries> hisList = new ArrayList<MovieSeries>();
 
 	Paging paging = new Paging() {
 	};
@@ -160,11 +169,38 @@ public class IndexAction{
 		masterCatList = masterCatService.findAll();
 
 
+		//クッキーから履歴を取得します。
+		HttpServletRequest req = RequestUtil.getRequest();
+
+		//クッキーを取得します。
+		Cookie[] cookies = req.getCookies();
+
+		//クッキーがnullでない場合
+		if (!cookies.equals("")){
+			for (Cookie c: cookies){
+				if(c.getName().equals("sid")){
+					System.out.println("----------------------koko----------"+c.getValue());
+					Integer seriesId = IntegerConversionUtil.toPrimitiveInt(c.getValue());
+
+					//					if(seriesId == 0){
+					//						continue;
+					//					}
+					System.out.println("---------------------------------"+seriesId);
+					hisList.add(movieSeriesService.findById(seriesId, 1));
+				}
+			}
+		}
+
+		for(MovieSeries hLt:hisList){
+			System.out.println("------------------ここは？-----"+hLt.stitle);
+		}
+
 		return "index.jsp";
 	}
 
 	/**
 	 * 動画の詳細を表示します。
+	 * @author iKra
 	 * @return
 	 */
 	@Execute(validator = true, input = "index.jsp", urlPattern ="detail/{sid}")
@@ -189,12 +225,19 @@ public class IndexAction{
 			movieSeriesService.update(mSL);
 		}
 
+
+		HttpServletResponse res = ResponseUtil.getResponse();
+
+		//クッキー再生動画のsidをクッキーに入れます。
+		Cookie cookie = new Cookie("sid", indexForm.sid);
+		cookie.setPath("/");
+		cookie.setMaxAge(3600*24*30);
+		res.addCookie(cookie);
+
 		//表示用のカテゴリーのマスターを取得します。
 		masterCatList = masterCatService.findAll();
 		return "detail.jsp";
 
 	}
-
-
 
 }
