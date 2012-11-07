@@ -177,6 +177,7 @@ public class MovieSeriesService extends AbstractService<MovieSeries> {
 				.leftOuterJoin("movieInfo.movieCatList")
 				.limit(LIMIT)
 				.offset(LIMIT * page)
+				.orderBy(asc(mid()))
 				.getResultList();
 
 		return movieList;

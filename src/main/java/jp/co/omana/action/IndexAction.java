@@ -177,16 +177,20 @@ public class IndexAction{
 
 		//クッキーがnullでない場合
 		if (!cookies.equals("")){
-			for (Cookie c: cookies){
-				if(c.getName().equals("sid")){
-					System.out.println("----------------------koko----------"+c.getValue());
-					Integer seriesId = IntegerConversionUtil.toPrimitiveInt(c.getValue());
+			for (int i=0;i<cookies.length;i++){
 
-					//					if(seriesId == 0){
-					//						continue;
-					//					}
-					System.out.println("---------------------------------"+seriesId);
-					hisList.add(movieSeriesService.findById(seriesId, 1));
+				//cookieの識別子がmovieIdの場合
+				if(cookies[i].getName().startsWith("movieId")){
+					System.out.println("----------------------koko----------" + cookies[i].getValue());
+					Integer movieId = IntegerConversionUtil.toInteger(cookies[i].getValue());
+
+					//クッキーのValueがnullあるいは、0の場合
+					if(movieId == 0){
+						continue;
+					}
+
+					System.out.println("---------------------------------"+movieId);
+					hisList.add(movieSeriesService.findById(movieId, 1));
 				}
 			}
 		}
@@ -229,7 +233,7 @@ public class IndexAction{
 		HttpServletResponse res = ResponseUtil.getResponse();
 
 		//クッキー再生動画のsidをクッキーに入れます。
-		Cookie cookie = new Cookie("sid", indexForm.sid);
+		Cookie cookie = new Cookie("movieId", indexForm.sid);
 		cookie.setPath("/");
 		cookie.setMaxAge(3600*24*30);
 		res.addCookie(cookie);
